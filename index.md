@@ -13,7 +13,7 @@ I document hands-on networking projects, troubleshooting experiences, configurat
 
 ### Configuring a TP-Link TD-W8968 as an Access Point for JioFiber
 
-I recently faced an issue with my JioFiber router with 30mbps is not reaching ground floor in my house, where router is placed on the top floor, and sibling needs the data there. So, she keeps on recharging her mobile data. So, I've remembered that I have an older TP-Link TD-W8968 modem-router which purchases in 2015 where my high school got completed. 
+I recently faced an issue with my JioFiber router with 30mbps is not reaching ground floor in my house, where router is placed on the top floor, and my sibling needs the data to access there. So, she keeps on recharging her mobile data. So, I've remembered that I have an older TP-Link TD-W8968 modem-router which purchases in 2015 where my high school got completed. 
 
 Since I've started to learn networking, this sparks me into this to check the router can be used as access point. Those who do not know about access point see the references. 
 
