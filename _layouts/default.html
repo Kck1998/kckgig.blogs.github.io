@@ -40,16 +40,35 @@
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Mermaid Initialization
+      // 1. Process Jekyll Kramdown ```mermaid code blocks
+      const mermaidBlocks = document.querySelectorAll('.language-mermaid, pre.mermaid, code.language-mermaid');
+      mermaidBlocks.forEach((el) => {
+        const code = el.textContent.trim();
+        const mermaidDiv = document.createElement('div');
+        mermaidDiv.className = 'mermaid';
+        mermaidDiv.style.textAlign = 'center';
+        mermaidDiv.style.margin = '2rem 0';
+        mermaidDiv.textContent = code;
+
+        const container = el.closest('.highlighter-rouge') || el.closest('pre') || el;
+        if (container && container.parentNode) {
+          container.parentNode.replaceChild(mermaidDiv, container);
+        }
+      });
+
+      // 2. Initialize Mermaid
       if (window.mermaid) {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+          (!document.documentElement.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        
         mermaid.initialize({
           startOnLoad: true,
-          theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+          theme: isDark ? 'dark' : 'default',
           securityLevel: 'loose'
         });
       }
 
-      // Theme Toggle Listener
+      // 3. Theme Switch Listener
       const toggleBtn = document.getElementById('theme-toggle');
       if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
@@ -65,10 +84,8 @@
           document.documentElement.setAttribute('data-theme', newTheme);
           localStorage.setItem('theme', newTheme);
 
-          // Re-render mermaid if theme changes
-          if (window.mermaid) {
-            location.reload();
-          }
+          // Reload page to re-render Mermaid cleanly under new theme
+          location.reload();
         });
       }
     });

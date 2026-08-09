@@ -59,31 +59,26 @@ This article documents the complete setup, key concepts learned, and the final v
 The objective was to merge both devices onto a single unified `192.168.25.x` network:
 
 ```mermaid
-graph TD
-    INET(["🌐 Public Internet"]):::cloud
+flowchart TD
+    INET["🌐 Public Internet"]
     
     subgraph Floor2 ["🏢 Second Floor"]
-        JIO["📡 JioFiber Main Router<br/><b>IP: 192.168.25.1</b><br/>• DHCP: Enabled<br/>• NAT: Enabled"]:::router
+        JIO["📡 JioFiber Main Router<br/>IP: 192.168.25.1<br/>DHCP: Enabled | NAT: Enabled"]
     end
 
     subgraph Floor1 ["🏡 Ground Floor"]
-        TPLINK["📶 TP-Link TD-W8968 AP<br/><b>IP: 192.168.25.2</b><br/>• DHCP: Disabled<br/>• Mode: Access Point"]:::ap
+        TPLINK["📶 TP-Link TD-W8968 AP<br/>IP: 192.168.25.2<br/>DHCP: Disabled | Mode: Access Point"]
     end
 
     subgraph Devices ["💻 Connected End Devices"]
-        LENOVO["📱 Lenovo Laptop<br/><b>192.168.25.243</b><br/>(Wi-Fi Connection)"]:::client
-        HP["💻 HP Notebook<br/><b>192.168.25.241</b><br/>(LAN Port 3 Cable)"]:::client
+        LENOVO["📱 Lenovo Laptop<br/>192.168.25.243 (Wi-Fi)"]
+        HP["💻 HP Notebook<br/>192.168.25.241 (Ethernet Port 3)"]
     end
 
-    INET ==> JIO
-    JIO ==>|Cat5e / Cat6 LAN-to-LAN Cable| TPLINK
-    TPLINK -.->|Wi-Fi Connection| LENOVO
-    TPLINK ==>|Ethernet Cable| HP
-
-    classDef router fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
-    classDef ap fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95;
-    classDef client fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#044e37;
-    classDef cloud fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f;
+    INET --> JIO
+    JIO -->|Cat5e / Cat6 Cable| TPLINK
+    TPLINK -.->|Wi-Fi| LENOVO
+    TPLINK -->|Ethernet| HP
 ```
 
 <div class="topology-container">
