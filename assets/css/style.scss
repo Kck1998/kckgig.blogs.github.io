@@ -388,6 +388,90 @@ pre code {
   padding: 0;
 }
 
+/* Visual Topology Component */
+.topology-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  padding: 1.75rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.topology-node {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  min-width: 290px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.topology-node:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.topology-node .node-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.topology-node .node-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-heading);
+}
+
+.topology-node .node-ip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin: 0.2rem 0;
+}
+
+.topology-node .node-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.topology-arrow {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--border-subtle);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+}
+
+.topology-branches {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.topology-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 240px;
+}
+
 /* Callout Containers */
 .callout {
   padding: 1rem 1.25rem;

@@ -58,30 +58,91 @@ This article documents the complete setup, key concepts learned, and the final v
 
 The objective was to merge both devices onto a single unified `192.168.25.x` network:
 
-```text
-                            Internet
-                               |
-                        JioFiber Router
-                      IP: 192.168.25.1
-                DHCP: Enabled | NAT: Enabled
-                               |
-                       Ethernet Cable (LAN to LAN)
-                               |
-                      TP-Link TD-W8968
-                      IP: 192.168.25.2
-                       DHCP: Disabled
-                               |
-            +------------------+------------------+
-            |                                     |
-      TP-Link Wi-Fi                         TP-Link LAN Port 3
-            |                                     |
-     Lenovo Laptop                             HP Notebook
-    192.168.25.243                            192.168.25.241
-            |                                     |
-            +------------------+------------------+
-                               |
-                    Gateway: 192.168.25.1
+```mermaid
+graph TD
+    INET(["🌐 Public Internet"]):::cloud
+    
+    subgraph Floor2 ["🏢 Second Floor"]
+        JIO["📡 JioFiber Main Router<br/><b>IP: 192.168.25.1</b><br/>• DHCP: Enabled<br/>• NAT: Enabled"]:::router
+    end
+
+    subgraph Floor1 ["🏡 Ground Floor"]
+        TPLINK["📶 TP-Link TD-W8968 AP<br/><b>IP: 192.168.25.2</b><br/>• DHCP: Disabled<br/>• Mode: Access Point"]:::ap
+    end
+
+    subgraph Devices ["💻 Connected End Devices"]
+        LENOVO["📱 Lenovo Laptop<br/><b>192.168.25.243</b><br/>(Wi-Fi Connection)"]:::client
+        HP["💻 HP Notebook<br/><b>192.168.25.241</b><br/>(LAN Port 3 Cable)"]:::client
+    end
+
+    INET ==> JIO
+    JIO ==>|Cat5e / Cat6 LAN-to-LAN Cable| TPLINK
+    TPLINK -.->|Wi-Fi Connection| LENOVO
+    TPLINK ==>|Ethernet Cable| HP
+
+    classDef router fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef ap fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95;
+    classDef client fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#044e37;
+    classDef cloud fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f;
 ```
+
+<div class="topology-container">
+  <div class="topology-node">
+    <div class="node-icon">🌐</div>
+    <div class="node-details">
+      <div class="node-title">Public Internet</div>
+      <div class="node-subtitle">ISP Fiber Connection</div>
+    </div>
+  </div>
+
+  <div class="topology-arrow">↓ Fiber WAN Link</div>
+
+  <div class="topology-node">
+    <div class="node-icon">📡</div>
+    <div class="node-details">
+      <div class="node-title">JioFiber Router (Main Gateway)</div>
+      <div class="node-ip">192.168.25.1</div>
+      <div class="node-subtitle">DHCP: Enabled | NAT: Enabled</div>
+    </div>
+  </div>
+
+  <div class="topology-arrow">↓ Ethernet Cable (LAN to LAN)</div>
+
+  <div class="topology-node">
+    <div class="node-icon">📶</div>
+    <div class="node-details">
+      <div class="node-title">TP-Link TD-W8968 (Access Point)</div>
+      <div class="node-ip">192.168.25.2</div>
+      <div class="node-subtitle">DHCP: Disabled | Switch & AP Mode</div>
+    </div>
+  </div>
+
+  <div class="topology-branches">
+    <div class="topology-branch">
+      <div class="topology-arrow">↙ Wi-Fi</div>
+      <div class="topology-node">
+        <div class="node-icon">📱</div>
+        <div class="node-details">
+          <div class="node-title">Lenovo Laptop</div>
+          <div class="node-ip">192.168.25.243</div>
+          <div class="node-subtitle">Wireless Client</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topology-branch">
+      <div class="topology-arrow">↘ Ethernet</div>
+      <div class="topology-node">
+        <div class="node-icon">💻</div>
+        <div class="node-details">
+          <div class="node-title">HP Notebook</div>
+          <div class="node-ip">192.168.25.241</div>
+          <div class="node-subtitle">LAN Port 3 Client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ### Role Distribution
 
@@ -183,10 +244,6 @@ On the same **LAN Settings** page:
 ### Step 5: LAN-to-LAN Physical Connection
 
 Connect an Ethernet cable between a **LAN port on the JioFiber router** and a **LAN port on the TP-Link TD-W8968**.
-
-```text
-JioFiber Router (LAN Port) <====== Ethernet Cable ======> TP-Link TD-W8968 (LAN Port 3)
-```
 
 <div class="callout callout-info">
   <div class="callout-title">📌 Cable Rule</div>
