@@ -1,3 +1,5 @@
 title: Cibi's Network Lab
 description: Practical networking configuration guides, troubleshooting notes, and hands-on learning experiences.
 theme: jekyll-theme-minimal
+baseurl: "/kckgig.blogs.github.io"
+url: "https://kck1998.github.io"
